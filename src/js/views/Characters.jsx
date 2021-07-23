@@ -11,7 +11,7 @@ export const Characters = () => {
 		history.push("/details");
 	};
 	return (
-		<div className="container-fluid">
+		<div className="container-fluid" style={{ marginBottom: 100 }}>
 			<p className="m-3 text-end">Total: {store.characters.length}</p>
 			<div className="row m-auto">
 				{store.characters.map(characters => {

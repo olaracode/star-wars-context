@@ -76,6 +76,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				}
 			},
+			removeFavourite: id => {
+				const favourites = getStore().favourites;
+				const filteredList = favourites.filter(favourite => {
+					if (favourite.uid !== id) {
+						return favourite;
+					}
+				});
+				setStore({ favourites: [filteredList] });
+				localStorage.setItem("favourites", JSON.stringify(filteredList));
+			},
 			setCurrent: link => {
 				console.log(link);
 				setStore({ linkToCurrent: link });

@@ -4,11 +4,13 @@ import ScrollToTop from "./component/scrollToTop";
 import { Inicio } from "./views/Inicio.jsx";
 import { Characters } from "./views/Characters.jsx";
 import { Planets } from "./views/Planets.jsx";
+import { Favourites } from "./views/Favourites.jsx";
+
 import { Specific } from "./component/Specific.jsx";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/Navbar.jsx";
-import { Footer } from "./component/footer";
+import { Footer } from "./component/Footer.jsx";
 
 //create your first component
 const Layout = () => {
@@ -33,6 +35,9 @@ const Layout = () => {
 						</Route>
 						<Route path="/details">
 							<Specific />
+						</Route>
+						<Route path="/favourites">
+							<Favourites />
 						</Route>
 					</Switch>
 					<Footer />

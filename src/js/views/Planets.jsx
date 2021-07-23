@@ -10,11 +10,10 @@ export const Planets = () => {
 		actions.setCurrent(url);
 		history.push("/details");
 	};
-
 	return (
-		<div className="container-fluid">
+		<div className="container-fluid" style={{ marginBottom: 100 }}>
 			<p className="m-3 text-end">Total: {store.planets.length}</p>
-			<div className="row m-auto">
+			<div className="row m-auto mb-5">
 				{store.planets.map(planet => {
 					return (
 						<div key={planet.uid} className="col-lg-2 col-sm-3 m-3 mx-auto">

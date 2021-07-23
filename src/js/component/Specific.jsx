@@ -31,7 +31,7 @@ export const Specific = props => {
 	}, []);
 	console.log(currentItem);
 	return (
-		<div>
+		<div style={{ marginBottom: 200 }}>
 			{loading ? (
 				<div className="container m-auto d-flex align-items-center vh-100">
 					<div className="m-auto text-center">
@@ -96,6 +96,7 @@ export const Specific = props => {
 								</ul>
 							)}
 						</div>
+						<div className="card-footer" />
 					</div>
 				</>
 			)}

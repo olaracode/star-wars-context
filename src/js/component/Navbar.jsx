@@ -23,7 +23,7 @@ export const Navbar = () => {
 					</Link>
 				</div>
 				<div className="p-2">
-					<Link className="btn btn-outline-warning">
+					<Link className="btn btn-outline-warning" to="/favourites">
 						<Star />
 					</Link>
 				</div>
