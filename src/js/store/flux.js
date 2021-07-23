@@ -46,8 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const getCurrent = await axios
 						.get(getStore().linkToCurrent)
-						.then(response => console.log(response.data.results));
-					console.log(getCurrent);
+						.then(response => response.data.results);
 					setStore({ currentDisplay: getCurrent });
 				} catch (err) {
 					return err;
@@ -87,7 +86,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("favourites", JSON.stringify(filteredList));
 			},
 			setCurrent: link => {
-				console.log(link);
 				setStore({ linkToCurrent: link });
 				localStorage.setItem("link", link);
 			}

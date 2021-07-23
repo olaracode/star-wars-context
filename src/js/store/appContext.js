@@ -25,7 +25,6 @@ const injectContext = PassedComponent => {
 		const loop = async (array, link, action) => {
 			do {
 				await axios.get(link).then(response => {
-					console.log(array);
 					link = response.data.next;
 					array.push(...response.data.results);
 				});
