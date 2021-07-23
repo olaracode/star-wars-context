@@ -1,3 +1,21 @@
 /* 
     General Styles
 */
+.inicio{
+    .cartaInicio{
+        height: 50vh;
+    }
+    .planets:hover{
+        cursor: pointer;
+        box-shadow: 10px 10px 5px 0px rgba(222,222,222,1);
+        color: white;
+        background-size: cover;
+        background-position: center;
+        background-image: url("./../img/source.gif");
+    }
+}
+.navbar{
+    .specialIcon{
+        width: 58px;
+    }
+}

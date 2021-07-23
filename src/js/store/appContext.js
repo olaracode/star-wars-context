@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import getState from "./flux.js";
+import axios from "axios";
 
 // Don't change, here is where we initialize our context, by default it's just going to be null.
 export const Context = React.createContext(null);
@@ -20,22 +21,46 @@ const injectContext = PassedComponent => {
 					})
 			})
 		);
+		// Funcion "recursiva" para hacer todas las llamadas subsecuentes del apiCall
+		const loop = async (array, link, action) => {
+			do {
+				await axios.get(link).then(response => {
+					console.log(array);
+					link = response.data.next;
+					array.push(...response.data.results);
+				});
+			} while (link !== null);
+			action(array);
+		};
 
-		useEffect(() => {
-			/**
-			 * EDIT THIS!
-			 * This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
-			 * you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
-			 * store, instead use actions, like this:
-			 *
-			 * state.actions.loadSomeData(); <---- calling this function from the flux.js actions
-			 *
-			 **/
+		//GET PLANETAS
+		useEffect(async () => {
+			if (localStorage.getItem("planets")) {
+				// Si ya esta en localStorage
+				state.actions.loadPlanetsFromLocalHost(); // Se asigna el estado con ella
+			} else {
+				let planets = []; // Lista vacia donde se almacenaran todas las iteraciones
+				const fetchPlanets = await axios.get("https://www.swapi.tech/api/planets/").then(response => {
+					planets.push(...response.data.results); // Se incluye los resultados en el array
+					let next = response.data.next; // Primer link de proxima pagina
+					loop(planets, next, state.actions.loadPlanets); // Empiezan las iteraciones
+				});
+			}
 		}, []);
-
-		// The initial value for the context is not null anymore, but the current state of this component,
-		// the context will now have a getStore, getActions and setStore functions available, because they were declared
-		// on the state of this component
+		// GET PERSONAS
+		useEffect(async () => {
+			// Se repiten los mismos pasos de get planetas
+			if (localStorage.getItem("characters")) {
+				state.actions.loadCharactersFromLocalHost();
+			} else {
+				let people = [];
+				const fetchCharacters = await axios.get("https://www.swapi.tech/api/people/").then(response => {
+					people.push(...response.data.results);
+					let nextPeople = response.data.next;
+					loop(people, nextPeople, state.actions.loadCharacters);
+				});
+			}
+		}, []);
 		return (
 			<Context.Provider value={state}>
 				<PassedComponent {...props} />

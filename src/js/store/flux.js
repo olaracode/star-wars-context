@@ -1,42 +1,52 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			characters: [],
+			planets: [],
+			linkToCurrent: ""
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
+			// Carga del estado
+			loadPlanetsFromLocalHost: () => {
+				setStore({
+					planets: JSON.parse(localStorage.getItem("planets"))
 				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			},
+			loadCharactersFromLocalHost: () => {
+				setStore({
+					characters: JSON.parse(localStorage.getItem("characters"))
+				});
+			},
+			loadCharacters: characterList => {
+				setStore({ characters: characterList });
+				localStorage.setItem("characters", JSON.stringify(characterList));
+			},
+			loadPlanets: planetList => {
+				setStore({ planets: planetList });
+				localStorage.setItem("planets", JSON.stringify(planetList));
+			},
+			// Manejo de informacion
+			getTopCharacters: () => {
+				const characters = getStore().characters;
+				const topCharacters = characters.filter(character => {
+					if (character.uid <= 4) {
+						return character;
+					}
+				});
+				return topCharacters;
+			},
+			getTopPlanets: () => {
+				const planets = getStore().planets;
+				const topPlanets = planets.filter(planet => {
+					if (planet.uid <= 4) {
+						return planet;
+					}
+				});
+				return topPlanets;
+			},
+			setCurrent: link => {
+				console.log(link);
+				setStore({ linkToCurrent: link });
 			}
 		}
 	};
