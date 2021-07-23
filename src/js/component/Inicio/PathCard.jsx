@@ -9,13 +9,13 @@ export const PathCard = () => {
 		history.push("/characters");
 	};
 	return (
-		<div className="d-flex h-100">
+		<div className="d-flex h-100 my-5">
 			<div className="card w-50 m-5 planets" id="planets" onClick={() => toPlanets()}>
 				<div className="card-body cartaInicio d-flex align-items-center">
 					<h2 className="m-auto">Explora los Planetas</h2>
 				</div>
 			</div>
-			<div className="card w-50 h-75 m-5" onClick={() => toCharacters()}>
+			<div className="card w-50 h-75 m-5 characters" onClick={() => toCharacters()}>
 				<div className="card-body cartaInicio d-flex align-items-center">
 					<h2 className="m-auto">Explora los Personajes</h2>
 				</div>

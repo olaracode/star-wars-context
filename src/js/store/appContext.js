@@ -37,7 +37,7 @@ const injectContext = PassedComponent => {
 		useEffect(async () => {
 			if (localStorage.getItem("planets")) {
 				// Si ya esta en localStorage
-				state.actions.loadPlanetsFromLocalHost(); // Se asigna el estado con ella
+				state.actions.loadPlanetsFromLocalStorage(); // Se asigna el estado con ella
 			} else {
 				let planets = []; // Lista vacia donde se almacenaran todas las iteraciones
 				const fetchPlanets = await axios.get("https://www.swapi.tech/api/planets/").then(response => {
@@ -51,7 +51,7 @@ const injectContext = PassedComponent => {
 		useEffect(async () => {
 			// Se repiten los mismos pasos de get planetas
 			if (localStorage.getItem("characters")) {
-				state.actions.loadCharactersFromLocalHost();
+				state.actions.loadCharactersFromLocalStorage();
 			} else {
 				let people = [];
 				const fetchCharacters = await axios.get("https://www.swapi.tech/api/people/").then(response => {
@@ -59,6 +59,17 @@ const injectContext = PassedComponent => {
 					let nextPeople = response.data.next;
 					loop(people, nextPeople, state.actions.loadCharacters);
 				});
+			}
+		}, []);
+		// GET FAVORITOS
+		useEffect(() => {
+			const favourites = localStorage.getItem("favourites");
+			const linkToCurrent = localStorage.getItem("linkToCurrent");
+			if (favourites) {
+				state.actions.loadFavouriteFromLocalStorage();
+			}
+			if (linkToCurrent) {
+				state.actions.loadLinkFromLocalStorage();
 			}
 		}, []);
 		return (

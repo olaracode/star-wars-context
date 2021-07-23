@@ -6,16 +6,16 @@ import Placeholder from "./../../img/placeholder.png";
 export const Planets = () => {
 	let history = useHistory();
 	const { store, actions } = useContext(Context);
-	const planetas = store.planets;
 	const handleClick = url => {
 		actions.setCurrent(url);
 		history.push("/details");
 	};
+
 	return (
 		<div className="container-fluid">
-			<p className="m-3 text-end">Total: {planetas.length}</p>
+			<p className="m-3 text-end">Total: {store.planets.length}</p>
 			<div className="row m-auto">
-				{planetas.map(planet => {
+				{store.planets.map(planet => {
 					return (
 						<div key={planet.uid} className="col-lg-2 col-sm-3 m-3 mx-auto">
 							<div className="card m-auto">
@@ -30,7 +30,10 @@ export const Planets = () => {
 											className="btn btn-primary">
 											Aprende mas
 										</button>
-										<button href="#" className="btn btn-warning">
+										<button
+											href="#"
+											className="btn btn-warning"
+											onClick={() => actions.addFavourites(planet)}>
 											<Star style={{ color: "white" }} />
 										</button>
 									</div>

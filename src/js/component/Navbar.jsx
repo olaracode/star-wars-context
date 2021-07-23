@@ -13,12 +13,14 @@ export const Navbar = () => {
 			</div>
 			<div className="d-flex justify-content-between">
 				<div className="p-2">
-					<Link to="/demo" className="btn btn-outline-primary">
+					<Link to="/planets" className="btn btn-outline-primary">
 						Planetas
 					</Link>
 				</div>
 				<div className="p-2">
-					<Link className="btn btn-outline-primary">Personajes</Link>
+					<Link to="/characters" className="btn btn-outline-primary">
+						Personajes
+					</Link>
 				</div>
 				<div className="p-2">
 					<Link className="btn btn-outline-warning">
