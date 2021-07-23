@@ -29,7 +29,6 @@ export const Specific = props => {
 			return err;
 		}
 	}, []);
-	console.log(currentItem);
 	return (
 		<div style={{ marginBottom: 200 }}>
 			{loading ? (
