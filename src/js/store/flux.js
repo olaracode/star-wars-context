@@ -56,13 +56,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const favourites = getStore().favourites;
 				let isFavourite = false;
 				favourites.map(favourite => {
-					console.log(name);
-					console.log(favourite.name);
 					if (favourite.name == name) {
 						isFavourite = true;
 					}
 				});
-				console.log(isFavourite);
 				return isFavourite;
 			},
 
@@ -84,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ favourites: [favourite] });
 						localStorage.setItem("favourites", JSON.stringify(getStore().favourites));
 					} else {
-						setStore({ favourites: [...getStore().favourites, favourite] });
+						setStore({ favourites: [...favouriteList, favourite] });
 						localStorage.setItem("favourites", JSON.stringify(getStore().favourites));
 					}
 				}
@@ -96,8 +93,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return favourite;
 					}
 				});
-				setStore({ favourites: [filteredList] });
-				localStorage.setItem("favourites", JSON.stringify(filteredList));
+				console.log(filteredList);
+				setStore({ favourites: filteredList });
+				if (filteredList.length < 1) {
+					localStorage.removeItem("favourites");
+				} else {
+					localStorage.setItem("favourites", JSON.stringify(filteredList));
+				}
 			},
 			setCurrent: link => {
 				setStore({ linkToCurrent: link });

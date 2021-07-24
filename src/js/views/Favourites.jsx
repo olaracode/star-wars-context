@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Card } from "./Card.jsx";
 export const Favourites = () => {
 	const { store, actions } = useContext(Context);
+	console.log(store.favourites);
 
 	return (
 		<div className="row p-5">
