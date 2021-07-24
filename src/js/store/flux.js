@@ -52,6 +52,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return err;
 				}
 			},
+			isFavourite: name => {
+				const favourites = getStore().favourites;
+				let isFavourite = false;
+				favourites.map(favourite => {
+					console.log(name);
+					console.log(favourite.name);
+					if (favourite.name == name) {
+						isFavourite = true;
+					}
+				});
+				console.log(isFavourite);
+				return isFavourite;
+			},
+
 			// Nuevo Favorito
 			addFavourites: favourite => {
 				const favouriteList = getStore().favourites; // Asigna una variable local con la lista
