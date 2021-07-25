@@ -42,16 +42,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			// Manejo de informacion
-			getCurrentDisplay: async () => {
-				try {
-					const getCurrent = await axios
-						.get(getStore().linkToCurrent)
-						.then(response => response.data.results);
-					setStore({ currentDisplay: getCurrent });
-				} catch (err) {
-					return err;
-				}
-			},
+			// Funcion para revisar si es favorito y asi asignar el css correspondiente
 			isFavourite: name => {
 				const favourites = getStore().favourites;
 				let isFavourite = false;
@@ -78,27 +69,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (!isInside) {
 					// Modifica el estado con el nuevo favorito
 					if (favouriteList.length < 1) {
-						setStore({ favourites: [favourite] });
+						// Si no hay favoritos
+						setStore({ favourites: [favourite] }); // Se asigna el nuevo favorito como una lista con un solo elemento
 						localStorage.setItem("favourites", JSON.stringify(getStore().favourites));
 					} else {
-						setStore({ favourites: [...favouriteList, favourite] });
+						setStore({ favourites: [...favouriteList, favourite] }); // Si ya existen los favoritos se usa el spreadOperator(...) para asignar el nuevo valor a favoritos
 						localStorage.setItem("favourites", JSON.stringify(getStore().favourites));
 					}
 				}
 			},
+
+			//Eliminar favorito
 			removeFavourite: id => {
 				const favourites = getStore().favourites;
+				// Se crea una nueva lista que contenga todos los elementos menos al que se esta eliminando
 				const filteredList = favourites.filter(favourite => {
 					if (favourite.uid !== id) {
 						return favourite;
 					}
 				});
-				console.log(filteredList);
-				setStore({ favourites: filteredList });
+				setStore({ favourites: filteredList }); // Se asigna esa nueva lista a favoritos
 				if (filteredList.length < 1) {
-					localStorage.removeItem("favourites");
+					localStorage.removeItem("favourites"); // Para evitar problemas, si el largo de la lista es inferior a uno se elimina la variable favourites de localStorage
 				} else {
-					localStorage.setItem("favourites", JSON.stringify(filteredList));
+					localStorage.setItem("favourites", JSON.stringify(filteredList)); // En caso contrario sencillamente se modifica su valor
 				}
 			},
 			setCurrent: link => {

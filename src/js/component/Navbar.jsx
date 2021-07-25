@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Star } from "@material-ui/icons";
+import { Context } from "../store/appContext";
+
 import DeathStar from "./../../img/deathstar.png";
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
 	return (
 		<nav className="navbar navbar-light bg-dark mb-3">
 			<div>
@@ -23,7 +26,7 @@ export const Navbar = () => {
 					</Link>
 				</div>
 				<div className="p-2">
-					<Link className="btn btn-outline-warning" to="/favourites">
+					<Link className="btn btn-outline-warning d-flex" to="/favourites">
 						<Star />
 					</Link>
 				</div>

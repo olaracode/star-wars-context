@@ -31,23 +31,7 @@ const injectContext = PassedComponent => {
 			} while (link !== null);
 			action(array);
 		};
-
-		//GET PLANETAS
-		useEffect(async () => {
-			if (localStorage.getItem("planets")) {
-				// Si ya esta en localStorage
-				state.actions.loadPlanetsFromLocalStorage(); // Se asigna el estado con ella
-			} else {
-				let planets = []; // Lista vacia donde se almacenaran todas las iteraciones
-				const fetchPlanets = await axios.get("https://www.swapi.tech/api/planets/").then(response => {
-					planets.push(...response.data.results); // Se incluye los resultados en el array
-					let next = response.data.next; // Primer link de proxima pagina
-					loop(planets, next, state.actions.loadPlanets); // Empiezan las iteraciones
-				});
-			}
-		}, []);
-		// GET PERSONAS
-		useEffect(async () => {
+		const getPeople = async () => {
 			// Se repiten los mismos pasos de get planetas
 			if (localStorage.getItem("characters")) {
 				state.actions.loadCharactersFromLocalStorage();
@@ -59,6 +43,27 @@ const injectContext = PassedComponent => {
 					loop(people, nextPeople, state.actions.loadCharacters);
 				});
 			}
+		};
+		const getPlanets = async () => {
+			if (localStorage.getItem("planets")) {
+				// Si ya esta en localStorage
+				state.actions.loadPlanetsFromLocalStorage(); // Se asigna el estado con ella
+			} else {
+				let planets = []; // Lista vacia donde se almacenaran todas las iteraciones
+				const fetchPlanets = await axios.get("https://www.swapi.tech/api/planets/").then(response => {
+					planets.push(...response.data.results); // Se incluye los resultados en el array
+					let next = response.data.next; // Primer link de proxima pagina
+					loop(planets, next, state.actions.loadPlanets); // Empiezan las iteraciones
+				});
+			}
+		};
+		//GET PLANETAS
+		useEffect(() => {
+			getPlanets();
+		}, []);
+		// GET PERSONAS
+		useEffect(() => {
+			getPeople();
 		}, []);
 		// GET FAVORITOS
 		useEffect(() => {
